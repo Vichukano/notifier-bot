@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatToUserConfiguration {
 
     @Bean(name = "chatToUserInfo")
-    public Map<String, UserInfo> chatToUser() {
+    public Map<String, UserInfo> chatToUserInfo() {
         return new ConcurrentHashMap<>();
     }
 
