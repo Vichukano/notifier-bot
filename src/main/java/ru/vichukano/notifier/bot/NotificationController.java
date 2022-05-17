@@ -30,5 +30,4 @@ public class NotificationController {
         log.info("Finish processing for request with uuid: {}", request.uuid());
         return ResponseEntity.ok().build();
     }
-
 }

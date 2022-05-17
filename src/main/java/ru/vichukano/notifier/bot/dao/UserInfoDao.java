@@ -30,5 +30,4 @@ public class UserInfoDao implements Dao<UserInfo> {
         chatToUserInfo.put(userInfo.uuid(), userInfo);
         log.trace("Successfully add userInfo: {}", userInfo);
     }
-
 }
