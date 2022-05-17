@@ -30,5 +30,4 @@ public class NotificationBotService implements BotService<NotificationRequest> {
         messages.forEach(sender::sendNotification);
         log.debug("Finish processing for request: {}", request);
     }
-
 }

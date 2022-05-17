@@ -60,11 +60,15 @@ public class NotificationBot extends TelegramLongPollingBot {
             answer.setText("Successfully register user. Now you will receive notifications in this chat.");
             answer.setChatId(chatId);
             try {
-                execute(answer);
+                self().execute(answer);
             } catch (TelegramApiException e) {
                 log.error("Failed to send answer: {}, cause: ", answer, e);
             }
         }
         log.debug("Finish to process update: {}", update);
+    }
+
+    TelegramLongPollingBot self() {
+        return this;
     }
 }

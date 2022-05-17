@@ -1,0 +1,6 @@
+app.bot:
+  name: notifier-bot
+  token: token
+
+spring:
+  application.name: notifier-bot

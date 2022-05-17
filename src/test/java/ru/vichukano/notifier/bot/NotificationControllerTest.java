@@ -67,4 +67,27 @@ class NotificationControllerTest {
             .sendNotification(ArgumentMatchers.any(SendMessage.class));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
+    @Test
+    void shouldReturnOKifException() {
+        Mockito.doThrow(new RuntimeException("Boom")).when(mockSender).sendNotification(ArgumentMatchers.any());
+        final var notification = new NotificationRequest.Notification(
+            "12345",
+            "Hello, world!!!"
+        );
+        final var notificationRequest = new NotificationRequest(
+            UUID.randomUUID().toString(),
+            "test",
+            LocalDateTime.now().toString(),
+            List.of(notification)
+        );
+
+        final ResponseEntity<Object> responseEntity = restTemplate.postForEntity(
+            LHOST + port + "/api/v1/notificate",
+            notificationRequest,
+            Object.class
+        );
+
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
 }
