@@ -8,10 +8,10 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-public class UserInfoDao implements Dao<UserInfo> {
+public class InMemoryUserInfoDao implements Dao<UserInfo> {
     private final Map<String, UserInfo> chatToUserInfo;
 
-    public UserInfoDao(@Qualifier("chatToUserInfo") Map<String, UserInfo> chatToUserInfo) {
+    public InMemoryUserInfoDao(@Qualifier("chatToUserInfo") Map<String, UserInfo> chatToUserInfo) {
         this.chatToUserInfo = chatToUserInfo;
     }
 

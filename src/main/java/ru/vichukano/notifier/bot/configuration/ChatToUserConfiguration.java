@@ -15,4 +15,5 @@ public class ChatToUserConfiguration {
         return new ConcurrentHashMap<>();
     }
 
+
 }
