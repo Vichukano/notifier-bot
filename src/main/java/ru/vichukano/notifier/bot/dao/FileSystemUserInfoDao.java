@@ -2,13 +2,10 @@ package ru.vichukano.notifier.bot.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 public class FileSystemUserInfoDao implements Dao<UserInfo> {
@@ -16,8 +13,7 @@ public class FileSystemUserInfoDao implements Dao<UserInfo> {
     private final Path rootPath;
     private final ObjectMapper objectMapper;
 
-    public FileSystemUserInfoDao(@Value("${app.store.path}") String path,
-                                 ObjectMapper objectMapper) {
+    public FileSystemUserInfoDao(String path, ObjectMapper objectMapper) {
         this.rootPath = Path.of(path);
         this.objectMapper = objectMapper;
     }
@@ -25,9 +21,8 @@ public class FileSystemUserInfoDao implements Dao<UserInfo> {
     @Override
     public UserInfo find(String id) {
         log.trace("Start to find user info by id: {}", id);
-        try (Stream<String> lines = Files.lines(rootPath.resolve(Path.of(id + SFX)))) {
-            final String content = lines.collect(Collectors.joining());
-            final UserInfo userInfo = objectMapper.convertValue(content, UserInfo.class);
+        try (InputStream is = Files.newInputStream(rootPath.resolve(Path.of(id + SFX)))) {
+            final UserInfo userInfo = objectMapper.readValue(is, UserInfo.class);
             log.trace("Found user info: {}", userInfo);
             return userInfo;
         } catch (Exception e) {
@@ -46,12 +41,7 @@ public class FileSystemUserInfoDao implements Dao<UserInfo> {
             log.trace("Start to add userInfo: {}", userInfo);
             final Path path = rootPath.resolve(Path.of(userInfo.uuid() + SFX));
             final String content = objectMapper.writeValueAsString(userInfo);
-            Files.writeString(
-                path,
-                content,
-                StandardOpenOption.TRUNCATE_EXISTING,
-                StandardOpenOption.CREATE_NEW
-            );
+            Files.writeString(path, content);
             log.trace("Successfully add userInfo: {}", userInfo);
         } catch (IOException e) {
             throw new DaoException(e.getMessage());

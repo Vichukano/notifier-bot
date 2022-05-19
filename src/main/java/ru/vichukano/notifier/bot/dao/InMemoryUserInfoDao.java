@@ -1,17 +1,14 @@
 package ru.vichukano.notifier.bot.dao;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@Component
 public class InMemoryUserInfoDao implements Dao<UserInfo> {
     private final Map<String, UserInfo> chatToUserInfo;
 
-    public InMemoryUserInfoDao(@Qualifier("chatToUserInfo") Map<String, UserInfo> chatToUserInfo) {
+    public InMemoryUserInfoDao(Map<String, UserInfo> chatToUserInfo) {
         this.chatToUserInfo = chatToUserInfo;
     }
 
