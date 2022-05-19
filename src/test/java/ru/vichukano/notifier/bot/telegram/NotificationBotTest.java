@@ -13,13 +13,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.vichukano.notifier.bot.dao.Dao;
+import ru.vichukano.notifier.bot.dao.InMemoryUserInfoDao;
 import ru.vichukano.notifier.bot.dao.UserInfo;
-import ru.vichukano.notifier.bot.dao.UserInfoDao;
 import java.util.HashMap;
 
 @SpringBootTest(classes = {NotificationBot.class})
 class NotificationBotTest {
-    private final Dao<UserInfo> userInfoDao = new UserInfoDao(new HashMap<>());
+    private final Dao<UserInfo> userInfoDao = new InMemoryUserInfoDao(new HashMap<>());
     @MockBean
     private NotificationBot mock;
     private final NotificationBot testTarget = new NotificationBot(userInfoDao, "test", "test") {

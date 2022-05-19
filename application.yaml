@@ -1,6 +1,9 @@
 spring.application.name: notifier-bot
 
 app:
+  dao:
+    dir: '\'
+    type: 'memory'
   bot:
     name:
     token:

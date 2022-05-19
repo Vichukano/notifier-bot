@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-class UserInfoDaoTest {
-    private UserInfoDao testTarget;
+class InMemoryUserInfoDaoTest {
+    private InMemoryUserInfoDao testTarget;
 
     @BeforeEach
     void init() {
@@ -16,7 +16,7 @@ class UserInfoDaoTest {
         store.put("1", new UserInfo("1", UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         store.put("2", new UserInfo("2", UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         store.put("3", new UserInfo("3", UUID.randomUUID().toString(), UUID.randomUUID().toString()));
-        testTarget = new UserInfoDao(store);
+        testTarget = new InMemoryUserInfoDao(store);
     }
 
     @Test

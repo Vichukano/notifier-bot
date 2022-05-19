@@ -1,6 +1,10 @@
-app.bot:
-  name: notifier-bot
-  token: token
+app:
+  bot:
+    name: notifier-bot
+    token: token
+  dao:
+    dir: '\'
+    type: 'memory'
 
 spring:
   application.name: notifier-bot
